@@ -1,0 +1,15 @@
+// todo
+
+main activity must use coordinatorLayout
+change colour of app bar and text therein, to be more legible
+change how the images on landing page are displayed, to fill the whole top part of the card
+raise the app bar when the page moves beneath it
+
+look at putting in a progress bar / spinner when loading detail page, it's really slow
+make the book details slide under the app bar, rather than app bar disappear up the screen
+make the 'share' button a FAB, on the junction between the image and book title
+make the text 'justified' to that there aren't hanging lines everywhere
+text size should link to device-specified font, for people without good eyesight
+
+check the app looks ok in landscape mode, as well as tablet mode
+define colour scheme in styles.xml
