@@ -9,4 +9,7 @@
 
     <string name="up">Up</string>
 
+    <string name="published_date_icon">When published</string>
+    <string name="author_icon">Author</string>
+
 </resources>

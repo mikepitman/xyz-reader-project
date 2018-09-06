@@ -1,9 +1,9 @@
 // todo
 
-main activity must use coordinatorLayout
+done --> main activity must use coordinatorLayout
 change colour of app bar and text therein, to be more legible
 change how the images on landing page are displayed, to fill the whole top part of the card
-raise the app bar when the page moves beneath it
+done --> raise the app bar when the page moves beneath it
 
 look at putting in a progress bar / spinner when loading detail page, it's really slow
 make the book details slide under the app bar, rather than app bar disappear up the screen
