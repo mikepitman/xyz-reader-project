@@ -1,6 +1,6 @@
 <!--https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/-->
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/article_list_coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
 
     <!-- https://android-developers.googleblog.com/2015/05/android-design-support-library.html -->
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/toolbar_container"
+        android:id="@+id/list_toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="112dp"
         android:background="@color/theme_primary">
@@ -24,7 +24,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/list_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"

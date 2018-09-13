@@ -1,5 +1,11 @@
 <resources>
 
+    <style name="Theme.xyz_reader" parent="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+    <style name="Theme.xyz_reader.detail">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <!-- style/s for primary line text -->
     <style name="primary_text">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
@@ -28,12 +34,12 @@
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
 
-    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
-    </style>
+    <!--<style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
+    <!--</style>-->
 
-    <!--<style name="xyz_app_theme.Detail">-->
-    <style name="Theme.Bacon.Detail">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+    <!--&lt;!&ndash;<style name="xyz_app_theme.Detail">&ndash;&gt;-->
+    <!--<style name="Theme.Bacon.Detail">-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--</style>-->
 
 </resources>

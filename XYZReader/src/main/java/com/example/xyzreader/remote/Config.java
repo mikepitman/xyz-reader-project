@@ -21,3 +21,8 @@ public class Config {
         BASE_URL = url;
     }
 }
+
+/*
+* URL with json
+* https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58c5d68f_xyz-reader/xyz-reader.json
+*/

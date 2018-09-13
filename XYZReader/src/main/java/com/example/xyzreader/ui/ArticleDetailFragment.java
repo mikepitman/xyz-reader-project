@@ -7,21 +7,13 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +25,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -52,6 +48,8 @@ public class ArticleDetailFragment extends Fragment implements
     private int mMutedColor = 0xFF333333;
     private ObservableScrollView mScrollView;
     private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
+    private CoordinatorLayout mCoordinatorLayout;
+    private Toolbar mToolbar;
     private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
@@ -61,11 +59,7 @@ public class ArticleDetailFragment extends Fragment implements
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
-    // Use default locale format
-    private SimpleDateFormat outputFormat = new SimpleDateFormat();
-    // Most time functions can only handle 1902 - 2037
-    private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
+    private final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("dd MMM yyyy");
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -114,29 +108,14 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        // todo: this needs updating to work with the switch to coordinatorLayout
+
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
-                mRootView.findViewById(R.id.draw_insets_frame_layout);
-        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
-            @Override
-            public void onInsetsChanged(Rect insets) {
-                mTopInset = insets.top;
-            }
-        });
+        mCoordinatorLayout = mRootView.findViewById(R.id.article_detail_coordinatorLayout);
+        mToolbar = mRootView.findViewById(R.id.detail_toolbar);
 
-        mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
-        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged() {
-                mScrollY = mScrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-                updateStatusBar();
-            }
-        });
-
-        mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
+        mPhotoView = (ImageView) mRootView.findViewById(R.id.article_image);
+//        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
         mStatusBarColorDrawable = new ColorDrawable(0);
 
@@ -150,8 +129,9 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
-        bindViews();
-        updateStatusBar();
+//        Calling bindViews() from here was causing some weird app behaviour
+//        bindViews();
+//        updateStatusBar();
         return mRootView;
     }
 
@@ -184,15 +164,12 @@ public class ArticleDetailFragment extends Fragment implements
         }
     }
 
-    private Date parsePublishedDate() {
-        try {
-            String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
-            return dateFormat.parse(date);
-        } catch (ParseException ex) {
-            Log.e(TAG, ex.getMessage());
-            Log.i(TAG, "passing today's date");
-            return new Date();
-        }
+    // Joda time is much easier to use!
+    private String getDate() {
+        String stringDate = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
+        stringDate = stringDate.substring(0, stringDate.indexOf('T'));
+        LocalDate parsedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("YYYY-MM-dd"));
+        return dateFormatter.print(parsedDate);
     }
 
     private void bindViews() {
@@ -200,39 +177,28 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
+        Log.d(TAG, "this is called");
         TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
-        TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
-        bylineView.setMovementMethod(new LinkMovementMethod());
+//        bylineView.setMovementMethod(new LinkMovementMethod());
+        TextView authorView = (TextView) mRootView.findViewById(R.id.article_author);
+        TextView publishedView = (TextView) mRootView.findViewById(R.id.article_published);
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
 
 
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
+//        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            Date publishedDate = parsePublishedDate();
-            if (!publishedDate.before(START_OF_EPOCH.getTime())) {
-                bylineView.setText(Html.fromHtml(
-                        DateUtils.getRelativeTimeSpanString(
-                                publishedDate.getTime(),
-                                System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                                DateUtils.FORMAT_ABBREV_ALL).toString()
-                                + " by <font color='#ffffff'>"
-                                + mCursor.getString(ArticleLoader.Query.AUTHOR)
-                                + "</font>"));
+            authorView.setText(mCursor.getString(ArticleLoader.Query.AUTHOR));
+            publishedView.setText(getDate());
 
-            } else {
-                // If date is before 1902, just show the string
-                bylineView.setText(Html.fromHtml(
-                        outputFormat.format(publishedDate) + " by <font color='#ffffff'>"
-                        + mCursor.getString(ArticleLoader.Query.AUTHOR)
-                                + "</font>"));
+            String rawText = mCursor.getString(ArticleLoader.Query.BODY);
+            CharSequence sanitisedText = Html.fromHtml(rawText.replaceAll("(\r\n|\n)", " "));
+            bodyView.setText(sanitisedText);
 
-            }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
@@ -244,7 +210,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
-                                updateStatusBar();
+//                                updateStatusBar();
                             }
                         }
 
@@ -256,7 +222,8 @@ public class ArticleDetailFragment extends Fragment implements
         } else {
             mRootView.setVisibility(View.GONE);
             titleView.setText("N/A");
-            bylineView.setText("N/A" );
+            authorView.setText("N/A");
+            publishedView.setText("N/A");
             bodyView.setText("N/A");
         }
     }
