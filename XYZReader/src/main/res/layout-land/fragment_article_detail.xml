@@ -1,8 +1,3 @@
-<!--<com.example.xyzreader.ui.DrawInsetsFrameLayout android:id="@+id/draw_insets_frame_layout"-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent">-->
-
 <!--https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/-->
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/article_detail_coordinatorLayout"
@@ -22,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:background="@color/theme_primary"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:expandedTitleMarginBottom="70dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/detail_collapsing_toolbar"
@@ -32,7 +28,6 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll">
 
-            <!-- LinearLayouts just don't work here -->
             <FrameLayout
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"
@@ -42,37 +37,11 @@
                 <ImageView
                     android:id="@+id/article_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/image_height"
                     android:background="@color/photo_placeholder"
                     android:contentDescription="@string/article_image"
                     android:scaleType="centerCrop"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/theme_primary"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/article_title"
-                        style="@style/primary_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed"
-                        android:lineSpacingMultiplier="0.9"
-                        android:textStyle="bold"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <include layout="@layout/detail_author"/>
-
-                        <include layout="@layout/detail_publisher"/>
-                    </LinearLayout>
-                </LinearLayout>
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
@@ -80,9 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
-            <!--android:layout_gravity="bottom"-->
-            <!--android:background="@color/theme_primary"-->
-            <!--app:layout_collapseMode="pin">-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -91,10 +57,13 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/article_text_nested_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+
+        android:foreground="?android:windowContentOverlay"
         android:clipToPadding="true"
         android:orientation="vertical"
+        app:behavior_overlapTop="@dimen/scrollview_overlap"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <!-- CardView from BakingApp -->
@@ -102,27 +71,59 @@
             android:id="@+id/card_view"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/landscape_cardview_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/card_layout_margin"
             app:cardElevation="@dimen/card_elevation"
             card_view:cardCornerRadius="@dimen/cardview_corner_radius">
 
-            <TextView
-                android:id="@+id/article_body"
-                style="@style/secondary_line.text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
-                android:layout_marginRight="@dimen/detail_inner_horiz_margin"
-                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
-                android:paddingBottom="@dimen/detail_body_bottom_margin"
-                android:textColor="@color/dkgray"
-                android:textColorLink="@color/theme_accent"
-                android:textSize="@dimen/detail_body_text_size"/>
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/article_title"
+                    style="@style/primary_text"
+                    android:textSize="@dimen/article_title_text_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/theme_primary"
+                    android:fontFamily="sans-serif-condensed"
+                    android:lineSpacingMultiplier="0.9"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/theme_primary"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/detail_author"/>
+
+                    <include layout="@layout/detail_publisher"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/article_body"
+
+                    style="@style/secondary_line.text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
+                    android:layout_marginRight="@dimen/detail_inner_horiz_margin"
+                    android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
+                    android:paddingTop="@dimen/detail_body_top_margin"
+                    android:paddingBottom="@dimen/detail_body_bottom_margin"
+                    android:textColor="@color/dkgray"
+                    android:textColorLink="@color/theme_accent"
+                    android:textSize="@dimen/detail_body_text_size"/>
+
+            </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton

@@ -19,6 +19,7 @@
         <item name="android:paddingTop">16dp</item>
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
+    <!--<item name="android:textAppearance">@dimen/article_title_text_size</item>    -->
 
     <!-- style/s for secondary line text -->
     <style name="secondary_line">
@@ -30,16 +31,7 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
-
-    <!--<style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
-    <!--</style>-->
-
-    <!--&lt;!&ndash;<style name="xyz_app_theme.Detail">&ndash;&gt;-->
-    <!--<style name="Theme.Bacon.Detail">-->
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
-    <!--</style>-->
 
 </resources>

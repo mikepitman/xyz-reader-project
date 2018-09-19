@@ -4,4 +4,9 @@
 
     <dimen name="detail_photo_height">600dp</dimen>
     <dimen name="detail_card_top_margin">256dp</dimen>
+    <dimen name="landscape_cardview_width">840dp</dimen>
+    <dimen name="article_title_text_size">48dp</dimen>
+    <dimen name="scrollview_overlap">170dp</dimen>
+    <dimen name="image_height">1200dp</dimen>
+
 </resources>
