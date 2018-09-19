@@ -7,6 +7,10 @@
     <dimen name="landscape_cardview_width">840dp</dimen>
     <dimen name="article_title_text_size">48dp</dimen>
     <dimen name="scrollview_overlap">170dp</dimen>
-    <dimen name="image_height">1200dp</dimen>
+    <!--<dimen name="image_height">1200dp</dimen>-->
 
+    <!-- Height of image from top of screen for Pixel C (~2/3 of screen height) -->
+    <dimen name="app_bar_layout_height">620dp</dimen>
+    <!-- Height of cardview extending over the image, measured from bottom of image -->
+    <dimen name="app_bar_card_overlay">-340dp</dimen>
 </resources>

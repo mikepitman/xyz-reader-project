@@ -12,5 +12,6 @@
 
     <string name="published_date_icon">When published</string>
     <string name="author_icon">Author</string>
+    <string name="no_data_error">There was an error: no data available!</string>
 
 </resources>

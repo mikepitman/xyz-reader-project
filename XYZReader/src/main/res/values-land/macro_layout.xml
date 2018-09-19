@@ -4,5 +4,12 @@
     <!--<dimen name="detail_inner_horiz_margin">112dp</dimen>-->
     <dimen name="detail_inner_horiz_margin">32dp</dimen>
     <dimen name="scrollview_overlap">62dp</dimen>
-    <dimen name="image_height">600dp</dimen>
+    <!--<dimen name="image_height">600dp</dimen>-->
+
+    <dimen name="app_bar_zero_elevation">0dp</dimen>
+    <!-- Height of image from top of screen for Pixel 2 (~2/3 of screen height) -->
+    <dimen name="app_bar_layout_height">300dp</dimen>
+    <!-- Height of cardview extending over the image, measured from bottom of image -->
+    <dimen name="app_bar_card_overlay">-160dp</dimen>
+
 </resources>

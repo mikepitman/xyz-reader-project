@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -129,9 +130,6 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
-//        Calling bindViews() from here was causing some weird app behaviour
-//        bindViews();
-//        updateStatusBar();
         return mRootView;
     }
 
@@ -185,6 +183,7 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
 
 
+        // Stick to normal android font
 //        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
@@ -225,6 +224,7 @@ public class ArticleDetailFragment extends Fragment implements
             authorView.setText("N/A");
             publishedView.setText("N/A");
             bodyView.setText("N/A");
+            Snackbar.make(mCoordinatorLayout, R.string.no_data_error, Snackbar.LENGTH_LONG).show();
         }
     }
 

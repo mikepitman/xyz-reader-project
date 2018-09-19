@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +39,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private static final String TAG = ArticleListActivity.class.toString();
     private Toolbar mToolbar;
+    private CoordinatorLayout mCoordinatorLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("dd MMM yyyy");
@@ -46,6 +49,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.article_list_coordinatorLayout);
         final View toolbarContainerView = findViewById(R.id.list_toolbar_container);
         mToolbar = (Toolbar) findViewById(R.id.list_toolbar);
 
@@ -99,13 +103,17 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        Adapter adapter = new Adapter(cursor);
-        adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
-        int columnCount = getResources().getInteger(R.integer.list_column_count);
-        StaggeredGridLayoutManager sglm =
-                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(sglm);
+        if (cursor != null) {
+            Adapter adapter = new Adapter(cursor);
+            adapter.setHasStableIds(true);
+            mRecyclerView.setAdapter(adapter);
+            int columnCount = getResources().getInteger(R.integer.list_column_count);
+            StaggeredGridLayoutManager sglm =
+                    new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(sglm);
+        } else {
+            Snackbar.make(mCoordinatorLayout, R.string.no_data_error, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override
