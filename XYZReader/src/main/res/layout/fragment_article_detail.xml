@@ -1,9 +1,3 @@
-<!--<com.example.xyzreader.ui.DrawInsetsFrameLayout android:id="@+id/draw_insets_frame_layout"-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent">-->
-
-<!--https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/-->
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/article_detail_coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".ui.ArticleDetailActivity">
+    <!--https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/-->
     <!-- https://medium.com/androiddevelopers/why-would-i-want-to-fitssystemwindows-4e26d9ce1eec -->
 
     <!-- https://android-developers.googleblog.com/2015/05/android-design-support-library.html -->
@@ -32,7 +27,7 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll">
 
-            <!-- LinearLayouts just don't work here -->
+            <!-- Seems this needs to be a FrameLayout rather than LinearLayout -->
             <FrameLayout
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"

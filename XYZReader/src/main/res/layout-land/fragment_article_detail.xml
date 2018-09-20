@@ -19,7 +19,6 @@
         android:background="@color/theme_primary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
         app:elevation="@dimen/app_bar_zero_elevation">
         <!-- Elevation of 0, so that card appears above the image background -->
 
@@ -29,7 +28,6 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll">
-            <!--android:elevation="@dimen/toolbar_elevation"-->
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -111,7 +109,6 @@
                     android:orientation="horizontal">
 
                     <include layout="@layout/detail_author"/>
-
                     <include layout="@layout/detail_publisher"/>
                 </LinearLayout>
 

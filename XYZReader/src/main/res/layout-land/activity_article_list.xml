@@ -13,11 +13,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/list_toolbar_container"
         android:layout_width="match_parent"
-
-        android:layout_height="112dp"
+        android:layout_height="@dimen/article_list_appbar_layout_height"
         android:background="@color/theme_primary">
-        <!--android:layout_height="wrap_content"-->
-        <!--android:elevation="8dp">-->
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -47,7 +44,6 @@
         layout="@layout/article_card_sublayout"
         android:layout_height="match_parent"
         android:layout_width="@dimen/max_width_size"
-
         android:layout_below="@id/list_toolbar_container"
         android:layout_gravity="center_horizontal"/>
 

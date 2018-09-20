@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Cards with image, title and subtitle contained in recyclerView below -->
-<!-- Section moved to sublayout due to re-use in various qualified layouts -->
+<!-- Section moved to sublayout due to re-use in various qualified layouts (default / landscape) -->
 <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
