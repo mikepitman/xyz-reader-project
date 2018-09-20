@@ -13,8 +13,7 @@
     <dimen name="landscape_cardview_width">430dp</dimen>
     <!--<dimen name="article_title_text_size">20dp</dimen>-->
 
-
-    <dimen name="card_layout_margin">6dp</dimen>
+    <dimen name="card_layout_margin">16dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
     <dimen name="cardview_corner_radius">4dp</dimen>
 </resources>

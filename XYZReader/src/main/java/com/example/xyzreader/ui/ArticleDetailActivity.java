@@ -22,6 +22,12 @@ import com.example.xyzreader.data.ItemsContract;
 
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
+ *
+ * Websites / blogs are referenced in code both as sources and for personal future reference in applicable places.
+ * Github repos considered include (the screenshots of layouts were particularly useful for guidance on 'slick' looking layouts).
+ * https://github.com/xionger/XYZ-Reader
+ * https://github.com/samirthebti/XYZ-Reader
+ * https://github.com/vipulasri/XYZ-Reader
  */
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
